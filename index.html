@@ -555,6 +555,7 @@
         function trackEvent(name, params) {
             if (typeof gtag !== 'undefined') {
                 gtag('event', name, params);
+                console.log("évent tracked:", name, params);
             }
         }
 
