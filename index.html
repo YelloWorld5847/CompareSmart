@@ -16,7 +16,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-T19YWJ7VQG');
+    gtag('config', 'G-T19YWJ7VQG', { 'debug_mode': true });
     </script>
 
     <style>
@@ -552,15 +552,15 @@
     </footer>
 
     <script>
-        function trackEvent(name, params) {
-            if (typeof gtag !== 'undefined') {
-                gtag('event', name, params);
-                console.log("évent tracked:", name, params);
-            }
-            else {
-                console.warn("Google Analytics not initialized. Event not tracked:", name, params);
-            }
-        }
+<!--        function trackEvent(name, params) {-->
+<!--            if (typeof gtag !== 'undefined') {-->
+<!--                gtag('event', name, params);-->
+<!--                console.log("évent tracked:", name, params);-->
+<!--            }-->
+<!--            else {-->
+<!--                console.warn("Google Analytics not initialized. Event not tracked:", name, params);-->
+<!--            }-->
+<!--        }-->
 
 
         const app = document.getElementById('app');
@@ -786,8 +786,41 @@
             `;
         }
 
+        // Anti-doublons en mémoire de session
         let lastTrackedProduct = null;
+        let clickTimestamps = {}; // { product_id: timestampDernierClic }
 
+        // Helper pour éviter les doublons
+        function shouldTrackClick(productId, delayMs = 30000) {
+            const now = Date.now();
+            if (!clickTimestamps[productId] || now - clickTimestamps[productId] > delayMs) {
+                clickTimestamps[productId] = now;
+                return true;
+            }
+            return false;
+        }
+
+        function shouldTrackView(productId) {
+            // On utilise aussi sessionStorage pour résister aux refresh
+            if (sessionStorage.getItem(`viewed_${productId}`)) {
+                return false;
+            }
+            sessionStorage.setItem(`viewed_${productId}`, "1");
+            return true;
+        }
+
+
+        // Tracking générique
+        function trackEvent(name, params) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', name, params);
+                console.log("✅ Event tracked:", name, params);
+            } else {
+                console.warn("⚠️ GA non initialisé:", name, params);
+            }
+        }
+
+        // Rendu page comparaison
         function render() {
             const hash = location.hash.replace(/^#/, '');
 
@@ -804,9 +837,9 @@
                     return;
                 }
                 app.innerHTML = compareView(product);
-                if (lastTrackedProduct !== id) {
+
+                if (shouldTrackView(id)) {
                     trackEvent('view_comparison', { product_id: id });
-                    lastTrackedProduct = id;
                 }
                 return;
             }
@@ -833,13 +866,18 @@
         // Event listeners
         window.addEventListener('hashchange', render);
 
+        // Clic sur bouton Amazon
         document.body.addEventListener('click', e => {
             if (e.target.closest('.buy-btn')) {
                 const id = decodeURIComponent(location.hash.split('/')[1] || '');
-                trackEvent('click_amazon', {
-                    product_id: id,
-                    product_name: e.target.textContent.trim()
-                });
+                if (shouldTrackClick(id)) {
+                    trackEvent('click_amazon', {
+                        product_id: id,
+                        product_name: e.target.textContent.trim()
+                    });
+                } else {
+                    console.log(`⏳ Click ignoré sur ${id} (trop rapproché)`);
+                }
             }
         });
 
