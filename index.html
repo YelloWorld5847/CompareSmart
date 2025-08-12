@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompareSmart — Quick side-by-side product comparisons</title>
+    <meta name="description" content="Quick, clear side-by-side comparisons to help you choose between two popular products. Some links are affiliate links.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            margin: 3rem 0 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Product grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-thumb {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+        }
+
+        .product-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card .subtitle {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .compare-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .compare-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .updated-date {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        /* Comparison view */
+        .comparison-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .products-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .product-detail {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 15px;
+            background: #f8fafc;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-short {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pros-cons {
+            text-align: left;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .pros-cons ul {
+            list-style: none;
+            margin-bottom: 1rem;
+            min-height: 8rem;
+        }
+
+        .pros-cons li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .buy-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            margin-top: auto;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            margin: 3rem 0;
+        }
+
+        .comparison-table h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Verdict section */
+        .verdict {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #0284c7;
+            margin: 2rem 0;
+        }
+
+        .verdict h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+
+        .verdict p {
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        /* Info sections */
+        .info-section {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .info-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .info-section p {
+            color: #64748b;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-content div {
+            color: #64748b;
+        }
+
+        .affiliate-notice {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            max-width: 300px;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #fef3cd;
+            border: 1px solid #fbbf24;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 2rem 0;
+            color: #92400e;
+            font-size: 0.9rem;
+        }
+
+        /* Loading state */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .products-comparison {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .card-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .compare-btn {
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* VS badge */
+        .vs-badge {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#home" class="logo">CompareSmart</a>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#disclaimer">Disclaimer</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app">
+        <div class="loading">Loading comparisons...</div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>© <span id="year"></span> CompareSmart — Quick comparisons</div>
+            <div class="affiliate-notice">
+                Some links are affiliate links. Using them helps support this site at no extra cost to you.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const app = document.getElementById('app');
+        const yearEl = document.getElementById('year');
+        yearEl.textContent = new Date().getFullYear();
+
+        let PRODUCTS = [];
+
+        // Mock data for demo (replace with actual products.json fetch)
+        const mockProducts = [
+            {
+                "id": "laptop-acer-vs-asus",
+                "title": "Acer Aspire 5 vs ASUS VivoBook 15",
+                "subtitle": "Budget 15\" laptop comparison",
+                "updated": "2025-08-01",
+                "thumb": "https://via.placeholder.com/400x200/667eea/ffffff?text=Laptops",
+                "verdict": "If you need battery and value, pick the Acer. If you value portability and keyboard comfort, choose the ASUS.",
+                "a": {
+                    "name": "Acer Aspire 5",
+                    "short": "Good value for office tasks and web browsing.",
+                    "image": "https://via.placeholder.com/300x200/667eea/ffffff?text=Acer+Aspire+5",
+                    "pros": ["Strong value for price", "Full HD display", "Good battery for day-to-day use"],
+                    "cons": ["Slightly heavier", "Not ideal for heavy gaming"],
+                    "link": "https://amazon.com/acer-aspire-5"
+                },
+                "b": {
+                    "name": "ASUS VivoBook 15",
+                    "short": "Lightweight and comfortable keyboard.",
+                    "image": "https://via.placeholder.com/300x200/764ba2/ffffff?text=ASUS+VivoBook",
+                    "pros": ["Lightweight", "Comfortable keyboard", "Fast SSD options"],
+                    "cons": ["Shorter battery life on some configs", "Often slightly pricier"],
+                    "link": "https://amazon.com/asus-vivobook-15"
+                },
+                "table": [
+                    { "feature": "Screen", "a": "15.6\" Full HD", "b": "15.6\" Full HD" },
+                    { "feature": "Weight", "a": "~1.9 kg", "b": "~1.6 kg" },
+                    { "feature": "Storage", "a": "256GB SSD (configurable)", "b": "256GB-512GB SSD" },
+                    { "feature": "Typical use", "a": "Office, browsing, media", "b": "Office, portability, light editing" }
+                ]
+            }
+        ];
+
+        async function loadProducts() {
+            try {
+                const response = await fetch('products.json');
+                PRODUCTS = await response.json();
+            } catch (error) {
+                console.log('Using demo data');
+                PRODUCTS = mockProducts;
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text && text !== 0) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function homeView() {
+            document.title = 'CompareSmart — Quick side-by-side product comparisons';
+
+            return `
+                <div class="fade-in">
+                    <section class="hero">
+                        <h1>Quick side-by-side comparisons</h1>
+                        <p>We compile concise comparisons using public information (specs, user reviews, and popularity) so you can quickly decide between two popular products.</p>
+                    </section>
+
+                    <section class="products-grid">
+                        ${PRODUCTS.map(product => `
+                            <article class="product-card">
+                                <img src="${product.thumb || 'https://via.placeholder.com/400x200/f1f5f9/64748b?text=Product'}"
+                                     alt="${escapeHtml(product.title)}"
+                                     class="product-thumb">
+                                <h3>${escapeHtml(product.title)}</h3>
+                                <p class="subtitle">${escapeHtml(product.subtitle || '')}</p>
+                                <div class="card-footer">
+                                    <a href="#compare/${encodeURIComponent(product.id)}" class="compare-btn">
+                                        View Comparison
+                                    </a>
+                                    <span class="updated-date">Updated: ${escapeHtml(product.updated || 'Recently')}</span>
+                                </div>
+                            </article>
+                        `).join('')}
+                    </section>
+                </div>
+            `;
+        }
+
+        function compareView(product) {
+            document.title = `${product.title} — CompareSmart`;
+
+            const a = product.a;
+            const b = product.b;
+
+            return `
+                <div class="fade-in">
+                    <div class="comparison-container">
+                        <a href="#home" class="back-link">
+                            ← Back to comparisons
+                        </a>
+
+                        <div class="products-comparison">
+                            <div class="product-detail">
+                                <img src="${a.image || 'https://via.placeholder.com/300x200/667eea/ffffff?text=' + encodeURIComponent(a.name)}"
+                                     alt="${escapeHtml(a.name)}"
+                                     class="product-image">
+                                <h3 class="product-name">${escapeHtml(a.name)}</h3>
+                                <p class="product-short">${escapeHtml(a.short || '')}</p>
+
+                                <div class="pros-cons">
+                                    <ul>
+                                        ${a.pros.map(pro => `<li><span style="color: #10b981;">✓</span> ${escapeHtml(pro)}</li>`).join('')}
+                                        ${a.cons.map(con => `<li><span style="color: #ef4444;">✗</span> ${escapeHtml(con)}</li>`).join('')}
+                                    </ul>
+                                </div>
+
+                                <a href="${a.link}" target="_blank" rel="noopener noreferrer" class="buy-btn">
+                                    Buy on Amazon
+                                </a>
+                            </div>
+
+                            <div class="vs-badge">VS</div>
+
+                            <div class="product-detail">
+                                <img src="${b.image || 'https://via.placeholder.com/300x200/764ba2/ffffff?text=' + encodeURIComponent(b.name)}"
+                                     alt="${escapeHtml(b.name)}"
+                                     class="product-image">
+                                <h3 class="product-name">${escapeHtml(b.name)}</h3>
+                                <p class="product-short">${escapeHtml(b.short || '')}</p>
+
+                                <div class="pros-cons">
+                                    <ul>
+                                        ${b.pros.map(pro => `<li><span style="color: #10b981;">✓</span> ${escapeHtml(pro)}</li>`).join('')}
+                                        ${b.cons.map(con => `<li><span style="color: #ef4444;">✗</span> ${escapeHtml(con)}</li>`).join('')}
+                                    </ul>
+                                </div>
+
+                                <a href="${b.link}" target="_blank" rel="noopener noreferrer" class="buy-btn">
+                                    Buy on Amazon
+                                </a>
+                            </div>
+                        </div>
+
+                        ${product.table && product.table.length ? `
+                        <section class="comparison-table">
+                            <h4>Detailed Comparison</h4>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Feature</th>
+                                            <th>${escapeHtml(a.name)}</th>
+                                            <th>${escapeHtml(b.name)}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${product.table.map(row => `
+                                            <tr>
+                                                <td><strong>${escapeHtml(row.feature)}</strong></td>
+                                                <td>${escapeHtml(row.a || 'N/A')}</td>
+                                                <td>${escapeHtml(row.b || 'N/A')}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        ` : ''}
+
+                        <section class="verdict">
+                            <h4>Our Verdict</h4>
+                            <p>${escapeHtml(product.verdict || 'Both are solid options — pick the one that matches your priorities.')}</p>
+                        </section>
+
+<!--                        <div class="disclaimer">-->
+<!--                            <strong>Affiliate Disclosure:</strong> Some links on this page are affiliate links. This helps support upkeep and content creation at no extra cost to you. We appreciate your support!-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            `;
+        }
+
+        function aboutView() {
+            document.title = 'About — CompareSmart';
+            return `
+                <div class="fade-in">
+                    <section class="info-section">
+                        <h2>About CompareSmart</h2>
+                        <p>This site provides concise side-by-side comparisons compiled from publicly-available specifications, user reviews, and common use-case patterns. Our goal is to help you quickly decide which product better fits your needs without overwhelming you with unnecessary details.</p>
+                        <p>We research products thoroughly using manufacturer specs, professional reviews, and real user feedback to give you the most accurate comparison possible.</p>
+                        <p>If you need more detailed information, we always provide links to the official product pages where you can dive deeper into specifications and reviews.</p>
+                    </section>
+                </div>
+            `;
+        }
+
+        function disclaimerView() {
+            document.title = 'Disclaimer — CompareSmart';
+            return `
+                <div class="fade-in">
+                    <section class="info-section">
+                        <h2>Disclaimer & Disclosure</h2>
+                        <p><strong>Information Sources:</strong> The information shown here is compiled from publicly available sources including manufacturer specifications, professional reviews, and user feedback. We conduct thorough research but do not claim to perform hands-on testing for every product.</p>
+                        <p><strong>Affiliate Links:</strong> This website contains affiliate links. When you make a purchase through these links, we may earn a small commission at no additional cost to you. This helps support our research efforts and keeps the site running.</p>
+                        <p><strong>Accuracy:</strong> We strive to provide accurate and up-to-date information, but product specifications and availability can change. Always verify details on the official product pages before making a purchase.</p>
+                        <p><strong>Independence:</strong> Our recommendations are based on research and analysis, not on which products provide higher commissions. We aim to help you make the best choice for your needs.</p>
+                    </section>
+                </div>
+            `;
+        }
+
+        function notFoundView() {
+            return `
+                <div class="fade-in">
+                    <section class="info-section">
+                        <h2>Comparison Not Found</h2>
+                        <p>Sorry, we couldn't find that comparison. It may have been moved or doesn't exist.</p>
+                        <p><a href="#home" style="color: #667eea; text-decoration: none; font-weight: 600;">← Go back to all comparisons</a></p>
+                    </section>
+                </div>
+            `;
+        }
+
+        function render() {
+            const hash = location.hash.replace(/^#/, '');
+
+            if (!hash || hash === 'home') {
+                app.innerHTML = homeView();
+                return;
+            }
+
+            if (hash.startsWith('compare/')) {
+                const id = decodeURIComponent(hash.split('/')[1] || '');
+                const product = PRODUCTS.find(p => p.id === id);
+                if (!product) {
+                    app.innerHTML = notFoundView();
+                    return;
+                }
+                app.innerHTML = compareView(product);
+                return;
+            }
+
+            if (hash === 'about') {
+                app.innerHTML = aboutView();
+                return;
+            }
+
+            if (hash === 'disclaimer') {
+                app.innerHTML = disclaimerView();
+                return;
+            }
+
+            app.innerHTML = notFoundView();
+        }
+
+        // Initialize the app
+        async function init() {
+            await loadProducts();
+            render();
+        }
+
+        // Event listeners
+        window.addEventListener('hashchange', render);
+
+        // Start the app
+        init();
+    </script>
+</body>
+</html>

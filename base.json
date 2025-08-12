@@ -1,0 +1,31 @@
+{
+  "id": "",
+  "type": "<product type>",
+  "title": "<a vs b>",
+  "subtitle": "",
+  "updated": "2025-08-01",
+  "thumb": "images/img.jpg",
+  "verdict": "",
+  "a": {
+    "name": "",
+    "short": "",
+    "image": "images/img.jpg",
+    "pros": [],
+    "cons": [],
+    "link": ""
+  },
+  "b": {
+    "name": "",
+    "short": "",
+    "image": "images/asus-img.jpg",
+    "pros": [],
+    "cons": [],
+    "link": ""
+  },
+  "table": [
+    { "feature": "", "a": "", "b": "" },
+    { "feature": "", "a": "", "b": "" },
+    { "feature": "", "a": "", "b": "" },
+    { "feature": "", "a": "", "b": "" }
+  ]
+}

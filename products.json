@@ -1,0 +1,55 @@
+[
+  {
+    "id": "gaming-keyboard-compare-2025-en",
+    "type": "keyboard",
+    "title": "SteelSeries Apex Pro Gen 3 vs Tecware Spectre 75",
+    "subtitle": "High-end performance vs Feature-packed budget board",
+    "updated": "2025-08-11",
+    "thumb": "images/steelseries-tecware.jpg",
+    "verdict": "Apex Pro Gen 3 repousse les limites avec ses switches magnétiques nouvelle génération et son écran OLED ; le Tecware Spectre 75 offre une expérience mécanique moderne, une grande modularité à prix choc.",
+    "a": {
+      "name": "SteelSeries Apex Pro Gen 3 (Pro TKL Wired)",
+      "short": "OmniPoint 3.0 Hall-effect magnetic switches, per-key adjustable actuation, OLED display – high-performance esports gear.",
+      "image": "images/steelseries.jpg",
+      "pros": [
+        "Ultra-fast OmniPoint 3.0 switches with configurable actuation (0.1–4 mm)",
+        "OLED smart display and built-in presets (Rapid Trigger, Protection Mode, Rapid Tap/SOCD)",
+        "Wired high-performance build, reputable brand"
+      ],
+      "cons": [
+        "High price (~$258)",
+        "TKL layout (no numpad)"
+      ],
+      "link": "https://www.amazon.com/SteelSeries-Apex-OmniPoint-HyperMagnetic-Switches/dp/B0D4RKYZJ5"
+    },
+    "b": {
+      "name": "Tecware Spectre 75 (Wireless/Wired)",
+      "short": "Compact 75% mechanical with LCD screen, hot-swap switches, triple connectivity, long battery life, and premium gasket-mount feel.",
+      "image": "images/tecware-spectre75.jpg",
+      "pros": [
+        "Excellent price/features ratio (often ~$65–80)",
+        "Triple connectivity: wired USB-C, Bluetooth 5.0, 2.4GHz wireless",
+        "LCD customizable screen, per-key RGB, programmable via onboard or software",
+        "Hot-swap 5-pin switch sockets, PBT double-shot keycaps, 4000 mAh battery"
+      ],
+      "cons": [
+        "Software perfectible",
+        "Compact layout (no full numpad)"
+      ],
+      "link": "https://www.amazon.com/TECWARE-Mechanical-Customizable-Multi-Function-Hot-Swappable/dp/B0DGY4QWZY/"
+    },
+    "table": [
+      { "feature": "Switch / Mechanism", "a": "Hall-effect OmniPoint 3.0 (magnetic, adjustable)", "b": "Tecware Candy Red (linear) or Cocoa Brown (tactile), pre-lubed, hot-swap" },
+      { "feature": "Approximate Price", "a": "$258", "b": "$65–80" },
+      { "feature": "Form Factor", "a": "Tenkeyless (TKL), 80%", "b": "75% compact layout (81 keys)" },
+      { "feature": "Keycap Material", "a": "Double-shot PBT", "b": "Double-shot PBT, non-shinethrough" },
+      { "feature": "Connectivity", "a": "Wired USB", "b": "USB-C wired, Bluetooth 5.0, 2.4 GHz wireless" },
+      { "feature": "Battery Life", "a": "N/A (wired)", "b": "Up to 400h (single charge, no RGB)[25]" },
+      { "feature": "Backlight", "a": "Per-key RGB + OLED display", "b": "Per-key RGB + LCD screen (customizable, shows system info/GIF)" },
+      { "feature": "Hot-Swappable", "a": "No", "b": "Yes, universal 5-pin" },
+      { "feature": "Build/Ergo", "a": "Aluminum/Plastic, adjustable feet", "b": "Plastic, gasket mount, multilayer foam, adjustable feet" },
+      { "feature": "Special Features", "a": "OLED display, Rapid Trigger, Protection Mode, software macro", "b": "Customizable LCD screen, macro, 19 lighting modes, multi-device switch" },
+      { "feature": "Target Buyer", "a": "Hardcore/competitive gamers, streamers", "b": "Gamers, débutants, étudiants recherchant modularité à petit prix" }
+    ]
+  }
+]
