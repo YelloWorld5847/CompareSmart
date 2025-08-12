@@ -557,6 +557,9 @@
                 gtag('event', name, params);
                 console.log("évent tracked:", name, params);
             }
+            else {
+                console.warn("Google Analytics not initialized. Event not tracked:", name, params);
+            }
         }
 
 
