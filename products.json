@@ -51,5 +51,59 @@
       { "feature": "Special Features", "a": "OLED display, Rapid Trigger, Protection Mode, software macro", "b": "Customizable LCD screen, macro, 19 lighting modes, multi-device switch" },
       { "feature": "Target Buyer", "a": "Hardcore/competitive gamers, streamers", "b": "Gamers, débutants, étudiants recherchant modularité à petit prix" }
     ]
+  },
+  {
+    "id": "aula-f75-compare-2025-en",
+    "type": "keyboard",
+    "title": "Aula F75 vs Aula F75 Max",
+    "subtitle": "Affordable gasket-mount vs feature-packed premium upgrade",
+    "updated": "2025-08-15",
+    "thumb": "images/aula-f75-f75max.jpg",
+    "verdict": "The Aula F75 delivers an impressive gasket-mount experience at a budget price, while the F75 Max adds more premium materials, extra features, and improved acoustics for those willing to spend more.",
+    "a": {
+      "name": "Aula F75",
+      "short": "Budget-friendly 75% mechanical with gasket mount, hot-swappable switches, and per-key RGB.",
+      "image": "images/aula-f75.jpg",
+      "pros": [
+        "Great price (~$69–79)",
+        "Gasket mount design for softer typing feel",
+        "Hot-swappable 5-pin switch sockets",
+        "Per-key RGB with software customization"
+      ],
+      "cons": [
+        "Plastic case, less premium feel",
+        "Average stabilizers out of the box"
+      ],
+      "link": "https://www.amazon.com/AULA-F75-Mechanical-Swappable-Pre-lubed/dp/B0CQ53BKWT"
+    },
+    "b": {
+      "name": "Aula F75 Max",
+      "short": "Enhanced premium version with metal top plate, improved sound dampening, and additional features.",
+      "image": "images/aula-f75-max.png",
+      "pros": [
+        "Metal top plate for extra rigidity",
+        "Better acoustic dampening and foam layers",
+        "Same gasket-mount comfort with premium build",
+        "Dedicated volume knob and extra control keys"
+      ],
+      "cons": [
+        "Higher price (~$89–109)",
+        "Still not fully metal body"
+      ],
+      "link": "https://www.amazon.com/EPOMAKER-Wireless-Mechanical-Keyboard-Screen/dp/B0DSW71NN6"
+    },
+    "table": [
+      { "feature": "Switch / Mechanism", "a": "Aula pre-lubed linear/tactile switches, hot-swap", "b": "Aula pre-lubed switches (same options), hot-swap" },
+      { "feature": "Approximate Price", "a": "$69–79", "b": "$89–109" },
+      { "feature": "Form Factor", "a": "75% layout (82 keys)", "b": "75% layout (82 keys) + extra controls" },
+      { "feature": "Keycap Material", "a": "Double-shot PBT", "b": "Double-shot PBT" },
+      { "feature": "Connectivity", "a": "USB-C wired", "b": "USB-C wired" },
+      { "feature": "Battery Life", "a": "N/A (wired)", "b": "N/A (wired)" },
+      { "feature": "Backlight", "a": "Per-key RGB", "b": "Per-key RGB" },
+      { "feature": "Hot-Swappable", "a": "Yes, universal 5-pin", "b": "Yes, universal 5-pin" },
+      { "feature": "Build/Ergo", "a": "Plastic case, gasket mount", "b": "Plastic + metal top plate, gasket mount" },
+      { "feature": "Special Features", "a": "RGB customization, macro support", "b": "RGB customization, macro support, volume knob" },
+      { "feature": "Target Buyer", "a": "Budget-conscious mechanical keyboard users", "b": "Enthusiasts wanting premium feel at mid-range price" }
+    ]
   }
 ]
