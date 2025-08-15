@@ -105,5 +105,37 @@
       { "feature": "Special Features", "a": "RGB customization, macro support", "b": "RGB customization, macro support, volume knob" },
       { "feature": "Target Buyer", "a": "Budget-conscious mechanical keyboard users", "b": "Enthusiasts wanting premium feel at mid-range price" }
     ]
+  },
+  {
+    "id": "rx9070xt_vs_rtx5070ti",
+    "type": "GPU",
+    "title": "Radeon RX 9070 XT vs RTX 5070 Ti",
+    "subtitle": "Strong AMD performance vs Nvidia DLSS 4 features",
+    "updated": "2025-08-15",
+    "thumb": "images/gpu_rx9070xt-rtx5070ti.jpg",
+    "verdict": "RX 9070 XT offers a better performance-for-price ratio at current Amazon price; RTX 5070 Ti provides DLSS 4 and Nvidia ecosystem benefits despite higher cost.",
+    "a": {
+      "name": "AMD Radeon RX 9070 XT (XFX Swift)",
+      "short": "16 GB VRAM, robust 4K performance, relatively affordable.",
+      "image": "images/rx9070xt.jpg",
+      "pros": ["Excellent price-to-performance ratio", "16 GB VRAM", "Great raw 4K performance"],
+      "cons": ["Lacks DLSS 4 upscaling", "Less advanced AI upscaling support"],
+      "link": "https://www.amazon.com/XFX-Radeon-9070XT-Triple-RX-97TSWF3W9/dp/B0DWPL55ZP"
+    },
+    "b": {
+      "name": "NVIDIA RTX 5070 Ti (PNY Overclocked)",
+      "short": "DLSS 4, PCIe 5.0, strong Nvidia ecosystem.",
+      "image": "images/rtx5070ti.jpg",
+      "pros": ["Supports DLSS 4 + MFG", "Excellent 1440p/4K performance", "Nvidia software ecosystem"],
+      "cons": ["Higher current price", "Similar VRAM but with premium"],
+      "link": "https://www.amazon.com/PNY-GeForce-Overclocked-Graphics-2-9-Slot/dp/B0DXL7GSYC"
+    },
+    "table": [
+      { "feature": "VRAM", "a": "16 GB", "b": "16 GB" },
+      { "feature": "Upscaling", "a": "FSR 4 (AMD)", "b": "DLSS 4 + MFG (Nvidia)" },
+      { "feature": "Amazon price", "a": "719.99 USD", "b": "809.99 USD" },
+      { "feature": "Price-to-Performance", "a": "Superior", "b": "Good with DLSS 4 value" }
+    ]
   }
+
 ]
